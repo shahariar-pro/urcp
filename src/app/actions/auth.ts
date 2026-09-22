@@ -65,7 +65,7 @@ export async function signUpAction(
 
   const supabase = await createClient();
 
-  const { error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email: cleanEmail,
     password,
     options: {
@@ -79,6 +79,25 @@ export async function signUpAction(
 
   if (error) {
     return { error: error.message };
+  }
+
+  if (data?.user) {
+    try {
+      const { createAdminClient } = await import("@/lib/supabase/admin");
+      const admin = createAdminClient();
+      await admin.from("profiles").upsert(
+        {
+          id: data.user.id,
+          full_name: fullName,
+          university_email: cleanEmail,
+          role: role,
+          department: department,
+        },
+        { onConflict: "id" }
+      );
+    } catch (err) {
+      console.error("Profile upsert fallback error:", err);
+    }
   }
 
   return {
