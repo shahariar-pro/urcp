@@ -14,6 +14,7 @@ import {
   User,
   LogOut,
   ShieldAlert,
+  Bell,
 } from "lucide-react";
 
 interface NavbarProps {
@@ -118,6 +119,11 @@ export function Navbar({ userProfile }: NavbarProps) {
               >
                 {userProfile.role}
               </Badge>
+              <Link href="/notifications">
+                <Button variant="ghost" size="icon" title="Notifications">
+                  <Bell className="h-4 w-4 text-slate-600" />
+                </Button>
+              </Link>
               <Link href="/profile">
                 <Button variant="ghost" size="icon" title="View Profile">
                   <User className="h-4 w-4 text-slate-600" />

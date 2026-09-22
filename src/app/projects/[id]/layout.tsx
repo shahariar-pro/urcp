@@ -4,6 +4,9 @@ import { notFound, redirect } from "next/navigation";
 import { Navbar } from "@/components/navbar";
 import { WorkspaceNav } from "./workspace-nav";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { FileDown } from "lucide-react";
 
 interface Props {
   children: React.ReactNode;
@@ -69,6 +72,12 @@ export default async function ProjectLayout({ children, params }: Props) {
             </div>
 
             <div className="flex items-center gap-4">
+              <Link href={`/projects/${id}/report`}>
+                <Button variant="outline" size="sm" className="gap-1.5 text-xs h-8">
+                  <FileDown className="h-3.5 w-3.5" />
+                  Progress Report
+                </Button>
+              </Link>
               <div className="flex flex-col items-end">
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-slate-500 font-medium">Overall Progress</span>
