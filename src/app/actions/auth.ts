@@ -9,6 +9,15 @@ export type AuthState = {
   success?: string | null;
 };
 
+function isValidAiubEmail(email: string): boolean {
+  const clean = email.trim().toLowerCase();
+  return (
+    clean.endsWith("@aiub.edu") ||
+    clean.endsWith("@student.aiub.edu") ||
+    clean.endsWith(".aiub.edu")
+  );
+}
+
 export async function getCurrentProfile(): Promise<Profile | null> {
   const supabase = await createClient();
   const {
@@ -41,12 +50,12 @@ export async function signUpAction(
     return { error: "Please fill in all required fields." };
   }
 
-  // Strict AIUB email enforcement per spec §6 Scope 1
+  // Strict AIUB email enforcement (@student.aiub.edu or @aiub.edu)
   const cleanEmail = email.trim().toLowerCase();
-  if (!cleanEmail.endsWith("@aiub.edu")) {
+  if (!isValidAiubEmail(cleanEmail)) {
     return {
       error:
-        "Access restricted: You must register with an official AIUB email address (@aiub.edu).",
+        "Access restricted: Please enter an official AIUB email address (@student.aiub.edu or @aiub.edu).",
     };
   }
 
@@ -91,9 +100,10 @@ export async function signInAction(
   }
 
   const cleanEmail = email.trim().toLowerCase();
-  if (!cleanEmail.endsWith("@aiub.edu")) {
+  if (!isValidAiubEmail(cleanEmail)) {
     return {
-      error: "Only @aiub.edu university email accounts are permitted.",
+      error:
+        "Only official AIUB university email accounts (@student.aiub.edu or @aiub.edu) are permitted.",
     };
   }
 
@@ -127,9 +137,10 @@ export async function resetPasswordAction(
   }
 
   const cleanEmail = email.trim().toLowerCase();
-  if (!cleanEmail.endsWith("@aiub.edu")) {
+  if (!isValidAiubEmail(cleanEmail)) {
     return {
-      error: "Only @aiub.edu university email accounts are permitted.",
+      error:
+        "Only official AIUB university email accounts (@student.aiub.edu or @aiub.edu) are permitted.",
     };
   }
 

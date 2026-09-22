@@ -46,13 +46,13 @@ function LoginForm() {
 
           <div className="space-y-1.5">
             <label className="text-sm font-medium text-slate-700">
-              University Email (@aiub.edu)
+              University Email (@student.aiub.edu or @aiub.edu)
             </label>
             <div className="relative">
               <Input
                 name="email"
                 type="email"
-                placeholder="student_id@aiub.edu or teacher@aiub.edu"
+                placeholder="student_id@student.aiub.edu or teacher@aiub.edu"
                 required
                 className="pl-9"
               />

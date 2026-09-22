@@ -87,20 +87,20 @@ export default function RegisterPage() {
 
               <div className="space-y-1.5">
                 <label className="text-sm font-medium text-slate-700">
-                  University Email (@aiub.edu only)
+                  University Email (@student.aiub.edu or @aiub.edu)
                 </label>
                 <div className="relative">
                   <Input
                     name="email"
                     type="email"
-                    placeholder="xx-xxxxx-x@aiub.edu"
+                    placeholder="xx-xxxxx-x@student.aiub.edu or teacher@aiub.edu"
                     required
                     className="pl-9"
                   />
                   <Mail className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
                 </div>
                 <p className="text-[11px] text-slate-500">
-                  Enforced: All academic and supervisory accounts must use an AIUB domain.
+                  Enforced: Students use @student.aiub.edu, faculty & staff use @aiub.edu.
                 </p>
               </div>
 
