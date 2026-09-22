@@ -228,7 +228,6 @@ Follow the same pattern already used for Faculty-Finder and Tymodoro:
 |---|---|
 | Dewan Shahariar Hossen | 24-59069-3 |
 | Md. Tajrian Islam Patwary | 24-59093-3 |
-| Md. Siam Tasbir | 24-59099-3 |
 
 Supervised by **Sourav Akib Sarkar**, Dept. of Computer Science, AIUB.
 

@@ -158,7 +158,7 @@ export default async function HomePage() {
 
           <div className="text-xs text-slate-500 space-y-1">
             <p className="font-semibold text-slate-700">Student Project Team:</p>
-            <p>Dewan Shahariar Hossen (24-59069-3) • Md. Tajrian Islam Patwary (24-59093-3) • Md. Siam Tasbir (24-59099-3)</p>
+            <p>Dewan Shahariar Hossen (24-59069-3) • Md. Tajrian Islam Patwary (24-59093-3)</p>
           </div>
         </div>
       </footer>
