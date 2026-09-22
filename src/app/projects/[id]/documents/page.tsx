@@ -1,12 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentProfile } from "@/app/actions/auth";
 import { redirect } from "next/navigation";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { FileText, Plus, GitBranch, ArrowRight, Clock } from "lucide-react";
-import { formatDate } from "@/lib/utils";
 import { DocumentsListClient } from "./documents-list-client";
 
 interface Props {
@@ -41,10 +35,10 @@ export default async function DocumentsPage({ params }: Props) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold tracking-tight text-slate-900">
+        <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
           Drafts & Research Documents
         </h2>
-        <p className="text-xs text-slate-500 mt-1">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
           Thesis chapters, methodology reports, inline supervisor comments, and 10+ version diff history
         </p>
       </div>

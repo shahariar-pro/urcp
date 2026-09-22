@@ -62,65 +62,65 @@ export default async function ProjectOverviewPage({ params }: PageProps) {
     <div className="space-y-6">
       {/* Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="bg-white shadow-2xs">
+        <Card className="bg-white dark:bg-slate-900 shadow-2xs">
           <CardContent className="p-5 flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Overall Progress
               </p>
-              <p className="text-2xl font-bold text-slate-900 mt-1">
+              <p className="text-2xl font-bold text-slate-900 dark:text-white mt-1">
                 {project.progress_percent}%
               </p>
             </div>
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400">
               <CheckCircle2 className="h-5 w-5" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white shadow-2xs">
+        <Card className="bg-white dark:bg-slate-900 shadow-2xs">
           <CardContent className="p-5 flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Active Tasks
               </p>
-              <p className="text-2xl font-bold text-slate-900 mt-1">
+              <p className="text-2xl font-bold text-slate-900 dark:text-white mt-1">
                 {completedTasks || 0} / {taskCount || 0}
               </p>
             </div>
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
               <Clock className="h-5 w-5" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white shadow-2xs">
+        <Card className="bg-white dark:bg-slate-900 shadow-2xs">
           <CardContent className="p-5 flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Literature Items
               </p>
-              <p className="text-2xl font-bold text-slate-900 mt-1">
+              <p className="text-2xl font-bold text-slate-900 dark:text-white mt-1">
                 {literatureCount || 0}
               </p>
             </div>
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-50 text-purple-600">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400">
               <BookOpen className="h-5 w-5" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white shadow-2xs">
+        <Card className="bg-white dark:bg-slate-900 shadow-2xs">
           <CardContent className="p-5 flex items-center justify-between">
             <div>
-              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Team Members
               </p>
-              <p className="text-2xl font-bold text-slate-900 mt-1">
+              <p className="text-2xl font-bold text-slate-900 dark:text-white mt-1">
                 {project.members?.length || 0}
               </p>
             </div>
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400">
               <Users className="h-5 w-5" />
             </div>
           </CardContent>
@@ -130,23 +130,23 @@ export default async function ProjectOverviewPage({ params }: PageProps) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main research description */}
         <div className="lg:col-span-2 space-y-6">
-          <Card className="bg-white shadow-2xs">
-            <CardHeader className="pb-3 border-b border-slate-100">
-              <CardTitle className="text-base font-semibold text-slate-900">
+          <Card className="bg-white dark:bg-slate-900 shadow-2xs">
+            <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800">
+              <CardTitle className="text-base font-semibold text-slate-900 dark:text-white">
                 Research Abstract & Scope
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4">
-              <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap">
+              <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
                 {project.abstract}
               </p>
 
               {project.objectives && (
-                <div className="mt-6 pt-4 border-t border-slate-100">
-                  <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">
+                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800">
+                  <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-2">
                     Methodologies & Objectives
                   </h4>
-                  <p className="text-sm text-slate-600 leading-relaxed whitespace-pre-wrap">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed whitespace-pre-wrap">
                     {project.objectives}
                   </p>
                 </div>
@@ -157,16 +157,16 @@ export default async function ProjectOverviewPage({ params }: PageProps) {
           {/* Quick Workspace Modules Access */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Link href={`/projects/${id}/literature`}>
-              <Card className="hover:border-blue-300 hover:shadow-xs transition-all cursor-pointer bg-white">
+              <Card className="hover:border-blue-300 dark:hover:border-blue-600/50 hover:shadow-xs transition-all cursor-pointer bg-white dark:bg-slate-900">
                 <CardContent className="p-4 flex items-start gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-blue-50 text-blue-600 shrink-0">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 shrink-0">
                     <BookOpen className="h-5 w-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-slate-900">
+                    <h4 className="text-sm font-semibold text-slate-900 dark:text-white">
                       Literature Repository
                     </h4>
-                    <p className="text-xs text-slate-500 mt-0.5">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                       Upload papers, detect duplicates, and track reading status.
                     </p>
                   </div>
@@ -175,16 +175,16 @@ export default async function ProjectOverviewPage({ params }: PageProps) {
             </Link>
 
             <Link href={`/projects/${id}/tasks`}>
-              <Card className="hover:border-blue-300 hover:shadow-xs transition-all cursor-pointer bg-white">
+              <Card className="hover:border-blue-300 dark:hover:border-blue-600/50 hover:shadow-xs transition-all cursor-pointer bg-white dark:bg-slate-900">
                 <CardContent className="p-4 flex items-start gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-emerald-50 text-emerald-600 shrink-0">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 shrink-0">
                     <Clock className="h-5 w-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-slate-900">
+                    <h4 className="text-sm font-semibold text-slate-900 dark:text-white">
                       Tasks & Milestones
                     </h4>
-                    <p className="text-xs text-slate-500 mt-0.5">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                       Kanban status, deadlines, and student assignees.
                     </p>
                   </div>
@@ -193,17 +193,17 @@ export default async function ProjectOverviewPage({ params }: PageProps) {
             </Link>
 
             <Link href={`/projects/${id}/documents`}>
-              <Card className="hover:border-blue-300 hover:shadow-xs transition-all cursor-pointer bg-white">
+              <Card className="hover:border-blue-300 dark:hover:border-blue-600/50 hover:shadow-xs transition-all cursor-pointer bg-white dark:bg-slate-900">
                 <CardContent className="p-4 flex items-start gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-purple-50 text-purple-600 shrink-0">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 shrink-0">
                     <FileText className="h-5 w-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-slate-900">
+                    <h4 className="text-sm font-semibold text-slate-900 dark:text-white">
                       Drafts & Revisions
                     </h4>
-                    <p className="text-xs text-slate-500 mt-0.5">
-                      10+ version histories, diff comparison, and inline comments.
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                      Version histories, diff comparison, and inline comments.
                     </p>
                   </div>
                 </CardContent>
@@ -211,16 +211,16 @@ export default async function ProjectOverviewPage({ params }: PageProps) {
             </Link>
 
             <Link href={`/projects/${id}/chat`}>
-              <Card className="hover:border-blue-300 hover:shadow-xs transition-all cursor-pointer bg-white">
+              <Card className="hover:border-blue-300 dark:hover:border-blue-600/50 hover:shadow-xs transition-all cursor-pointer bg-white dark:bg-slate-900">
                 <CardContent className="p-4 flex items-start gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-amber-50 text-amber-600 shrink-0">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 shrink-0">
                     <MessageSquare className="h-5 w-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-slate-900">
+                    <h4 className="text-sm font-semibold text-slate-900 dark:text-white">
                       Scoped Collaboration Chat
                     </h4>
-                    <p className="text-xs text-slate-500 mt-0.5">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                       Private discussion thread between supervisor and group members.
                     </p>
                   </div>
@@ -232,28 +232,24 @@ export default async function ProjectOverviewPage({ params }: PageProps) {
 
         {/* Sidebar: Research Team Members */}
         <div className="space-y-6">
-          <Card className="bg-white shadow-2xs">
-            <CardHeader className="pb-3 border-b border-slate-100 flex flex-row items-center justify-between">
-              <CardTitle className="text-base font-semibold text-slate-900">
+          <Card className="bg-white dark:bg-slate-900 shadow-2xs">
+            <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800 flex flex-row items-center justify-between">
+              <CardTitle className="text-base font-semibold text-slate-900 dark:text-white">
                 Research Members
               </CardTitle>
-              <Button size="sm" variant="outline" className="gap-1 text-xs h-7">
-                <UserPlus className="h-3.5 w-3.5" />
-                Invite
-              </Button>
             </CardHeader>
             <CardContent className="pt-4">
-              <div className="divide-y divide-slate-100">
+              <div className="divide-y divide-slate-100 dark:divide-slate-800">
                 {project.members?.map((member: any) => (
                   <div
                     key={member.id}
                     className="py-3 first:pt-0 last:pb-0 flex items-start justify-between"
                   >
                     <div>
-                      <p className="text-sm font-semibold text-slate-900">
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">
                         {member.profile?.full_name}
                       </p>
-                      <p className="text-xs text-slate-500">
+                      <p className="text-xs text-slate-500 dark:text-slate-400">
                         {member.profile?.university_email}
                       </p>
                     </div>

@@ -26,10 +26,13 @@ const POPULAR_TAGS = [
   "Computer Vision",
 ];
 
+const ITEMS_PER_PAGE = 24;
+
 export function FacultyDirectoryClient({ initialFaculty }: Props) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [departmentFilter, setDepartmentFilter] = useState("all");
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
 
   const filteredFaculty = useMemo(() => {
     return initialFaculty.filter((f) => {
@@ -64,26 +67,36 @@ export function FacultyDirectoryClient({ initialFaculty }: Props) {
     });
   }, [initialFaculty, searchTerm, selectedTag, departmentFilter]);
 
+  const displayedFaculty = useMemo(() => {
+    return filteredFaculty.slice(0, visibleCount);
+  }, [filteredFaculty, visibleCount]);
+
   return (
     <div className="space-y-6">
       {/* Search Bar & Filters */}
-      <div className="bg-white p-5 rounded-xl border border-slate-200/80 shadow-2xs space-y-4">
+      <div className="bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-200/80 dark:border-slate-800 shadow-2xs space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div className="relative md:col-span-2">
             <Input
               placeholder="Search faculty by name, keyword, or email..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setVisibleCount(ITEMS_PER_PAGE);
+              }}
               className="pl-9 h-10"
             />
-            <Search className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+            <Search className="absolute left-3 top-3 h-4 w-4 text-slate-400 dark:text-slate-500" />
           </div>
 
           <div>
             <select
               value={departmentFilter}
-              onChange={(e) => setDepartmentFilter(e.target.value)}
-              className="flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+              onChange={(e) => {
+                setDepartmentFilter(e.target.value);
+                setVisibleCount(ITEMS_PER_PAGE);
+              }}
+              className="flex h-10 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1 text-sm shadow-xs transition-colors text-slate-900 dark:text-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 dark:focus-visible:ring-blue-500"
             >
               <option value="all">All Departments</option>
               <option value="computer science">Department of Computer Science</option>
@@ -93,18 +106,21 @@ export function FacultyDirectoryClient({ initialFaculty }: Props) {
         </div>
 
         {/* Tag Filters */}
-        <div className="space-y-2 pt-2 border-t border-slate-100">
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-600">
-            <Sparkles className="h-3.5 w-3.5 text-blue-600" />
+        <div className="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+          <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400">
+            <Sparkles className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
             <span>Popular Research Tags:</span>
           </div>
           <div className="flex flex-wrap gap-1.5">
             <button
-              onClick={() => setSelectedTag(null)}
-              className={`text-xs px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${
+              onClick={() => {
+                setSelectedTag(null);
+                setVisibleCount(ITEMS_PER_PAGE);
+              }}
+              className={`text-xs px-2.5 py-1 rounded-full border transition-colors cursor-pointer select-none ${
                 selectedTag === null
-                  ? "bg-blue-600 text-white border-blue-600 font-semibold"
-                  : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
+                  ? "bg-blue-600 text-white border-blue-600 font-semibold shadow-xs"
+                  : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700"
               }`}
             >
               All Topics
@@ -114,11 +130,14 @@ export function FacultyDirectoryClient({ initialFaculty }: Props) {
               return (
                 <button
                   key={tag}
-                  onClick={() => setSelectedTag(isSelected ? null : tag)}
-                  className={`text-xs px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${
+                  onClick={() => {
+                    setSelectedTag(isSelected ? null : tag);
+                    setVisibleCount(ITEMS_PER_PAGE);
+                  }}
+                  className={`text-xs px-2.5 py-1 rounded-full border transition-colors cursor-pointer select-none ${
                     isSelected
-                      ? "bg-blue-600 text-white border-blue-600 font-semibold"
-                      : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
+                      ? "bg-blue-600 text-white border-blue-600 font-semibold shadow-xs"
+                      : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700"
                   }`}
                 >
                   #{tag}
@@ -130,9 +149,9 @@ export function FacultyDirectoryClient({ initialFaculty }: Props) {
       </div>
 
       {/* Results Header */}
-      <div className="flex items-center justify-between text-xs text-slate-500 font-medium">
+      <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
         <span>
-          Showing {filteredFaculty.length} of {initialFaculty.length} faculty members
+          Showing {displayedFaculty.length} of {filteredFaculty.length} faculty members
         </span>
         {(searchTerm || selectedTag || departmentFilter !== "all") && (
           <button
@@ -140,8 +159,9 @@ export function FacultyDirectoryClient({ initialFaculty }: Props) {
               setSearchTerm("");
               setSelectedTag(null);
               setDepartmentFilter("all");
+              setVisibleCount(ITEMS_PER_PAGE);
             }}
-            className="text-blue-600 hover:underline cursor-pointer"
+            className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
           >
             Reset Filters
           </button>
@@ -149,53 +169,55 @@ export function FacultyDirectoryClient({ initialFaculty }: Props) {
       </div>
 
       {/* Faculty Cards Grid */}
-      {filteredFaculty.length === 0 ? (
-        <Card className="border-dashed bg-white">
-          <CardContent className="p-12 text-center text-slate-500 space-y-2">
-            <User className="h-10 w-10 text-slate-300 mx-auto" />
-            <p className="text-sm font-semibold text-slate-700">No faculty members found</p>
-            <p className="text-xs text-slate-500">
+      {displayedFaculty.length === 0 ? (
+        <Card className="border-dashed bg-white dark:bg-slate-900/40">
+          <CardContent className="p-12 text-center text-slate-500 dark:text-slate-400 space-y-2">
+            <User className="h-10 w-10 text-slate-300 dark:text-slate-600 mx-auto" />
+            <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+              No faculty members found
+            </p>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               Try adjusting your search query or removing research tag filters.
             </p>
           </CardContent>
         </Card>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filteredFaculty.map((f) => (
+          {displayedFaculty.map((f) => (
             <Card
               key={f.id}
-              className="bg-white hover:border-slate-300 hover:shadow-sm transition-all flex flex-col justify-between"
+              className="bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-xs transition-all flex flex-col justify-between"
             >
               <CardContent className="p-5 space-y-4">
                 <div className="space-y-1">
                   <div className="flex items-start justify-between gap-2">
-                    <h3 className="font-bold text-base text-slate-900 leading-tight">
+                    <h3 className="font-bold text-base text-slate-900 dark:text-white leading-tight">
                       {f.name}
                     </h3>
                   </div>
                   {f.position && (
-                    <p className="text-xs font-semibold text-blue-600">
+                    <p className="text-xs font-semibold text-blue-600 dark:text-blue-400">
                       {f.position}
                     </p>
                   )}
                   {f.designation && (
-                    <p className="text-xs text-slate-500">{f.designation}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{f.designation}</p>
                   )}
                 </div>
 
-                <div className="space-y-1 text-xs text-slate-500">
+                <div className="space-y-1 text-xs text-slate-500 dark:text-slate-400">
                   <div className="flex items-center gap-1.5">
-                    <Mail className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+                    <Mail className="h-3.5 w-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
                     <a
                       href={`mailto:${f.email}`}
-                      className="hover:text-blue-600 truncate"
+                      className="hover:text-blue-600 dark:hover:text-blue-400 truncate"
                     >
                       {f.email}
                     </a>
                   </div>
                   {(f.room_no || f.building_no) && (
                     <div className="flex items-center gap-1.5">
-                      <MapPin className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+                      <MapPin className="h-3.5 w-3.5 text-slate-400 dark:text-slate-500 shrink-0" />
                       <span>
                         Room {f.room_no || "TBA"}, {f.building_no || "Campus"}
                       </span>
@@ -204,16 +226,19 @@ export function FacultyDirectoryClient({ initialFaculty }: Props) {
                 </div>
 
                 {f.research_interests && f.research_interests.length > 0 && (
-                  <div className="space-y-1.5 pt-2 border-t border-slate-100">
-                    <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+                  <div className="space-y-1.5 pt-2 border-t border-slate-100 dark:border-slate-800">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 dark:text-slate-500 tracking-wider">
                       Research Interests
                     </span>
                     <div className="flex flex-wrap gap-1">
                       {f.research_interests.slice(0, 5).map((interest, idx) => (
                         <span
                           key={idx}
-                          onClick={() => setSelectedTag(interest)}
-                          className="text-[10px] bg-slate-100 hover:bg-blue-50 hover:text-blue-600 text-slate-600 px-2 py-0.5 rounded cursor-pointer transition-colors"
+                          onClick={() => {
+                            setSelectedTag(interest);
+                            setVisibleCount(ITEMS_PER_PAGE);
+                          }}
+                          className="text-[10px] bg-slate-100 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-950/60 hover:text-blue-600 dark:hover:text-blue-400 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded cursor-pointer transition-colors"
                         >
                           #{interest}
                         </span>
@@ -223,12 +248,16 @@ export function FacultyDirectoryClient({ initialFaculty }: Props) {
                 )}
               </CardContent>
 
-              <div className="p-4 pt-0 border-t border-slate-100 bg-slate-50/50 rounded-b-lg flex items-center justify-between">
-                <span className="text-[11px] text-slate-400 truncate max-w-[140px]">
+              <div className="p-4 pt-0 border-t border-slate-100 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-800/30 rounded-b-lg flex items-center justify-between">
+                <span className="text-[11px] text-slate-400 dark:text-slate-500 truncate max-w-[140px]">
                   {f.department}
                 </span>
                 <Link href="/proposals/new">
-                  <Button size="sm" variant="ghost" className="gap-1 text-xs h-8 text-blue-600 hover:bg-blue-50">
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="gap-1 text-xs h-8 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/50"
+                  >
                     Propose Topic
                     <ArrowRight className="h-3.5 w-3.5" />
                   </Button>
@@ -236,6 +265,19 @@ export function FacultyDirectoryClient({ initialFaculty }: Props) {
               </div>
             </Card>
           ))}
+        </div>
+      )}
+
+      {/* Load More Button */}
+      {visibleCount < filteredFaculty.length && (
+        <div className="text-center pt-4">
+          <Button
+            variant="outline"
+            onClick={() => setVisibleCount((prev) => prev + ITEMS_PER_PAGE)}
+            className="text-xs px-6"
+          >
+            Load More Faculty ({filteredFaculty.length - visibleCount} remaining)
+          </Button>
         </div>
       )}
     </div>

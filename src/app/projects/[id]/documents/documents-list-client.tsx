@@ -25,8 +25,8 @@ export function DocumentsListClient({ projectId, initialDocs }: Props) {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">
-        <div className="text-xs text-slate-500 font-medium">
+      <div className="flex items-center justify-between bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs">
+        <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
           {initialDocs.length} Research Documents
         </div>
         <Button
@@ -39,15 +39,15 @@ export function DocumentsListClient({ projectId, initialDocs }: Props) {
       </div>
 
       {isCreateOpen && (
-        <Card className="border-blue-200 bg-white shadow-md animate-in fade-in duration-200">
-          <CardHeader className="pb-3 border-b border-slate-100 flex flex-row items-center justify-between">
-            <CardTitle className="text-base font-bold flex items-center gap-2">
-              <FileText className="h-4 w-4 text-blue-600" />
+        <Card className="border-blue-200 dark:border-blue-900/60 bg-white dark:bg-slate-900 shadow-md animate-in fade-in duration-200">
+          <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800 flex flex-row items-center justify-between">
+            <CardTitle className="text-base font-bold flex items-center gap-2 text-slate-900 dark:text-white">
+              <FileText className="h-4 w-4 text-blue-600 dark:text-blue-400" />
               New Research Document Draft
             </CardTitle>
             <button
               onClick={() => setIsCreateOpen(false)}
-              className="text-slate-400 hover:text-slate-600 cursor-pointer"
+              className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
             >
               <X className="h-4 w-4" />
             </button>
@@ -56,11 +56,11 @@ export function DocumentsListClient({ projectId, initialDocs }: Props) {
             <form action={formAction} className="space-y-4">
               <input type="hidden" name="projectId" value={projectId} />
               {state?.error && (
-                <p className="text-xs text-red-600">{state.error}</p>
+                <p className="text-xs text-red-600 dark:text-red-400">{state.error}</p>
               )}
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
                   Document Title <span className="text-red-500">*</span>
                 </label>
                 <Input
@@ -72,7 +72,7 @@ export function DocumentsListClient({ projectId, initialDocs }: Props) {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
                   Initial Outline / Content (Optional)
                 </label>
                 <Textarea
@@ -83,7 +83,7 @@ export function DocumentsListClient({ projectId, initialDocs }: Props) {
                 />
               </div>
 
-              <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
+              <div className="flex justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
                 <Button
                   type="button"
                   variant="outline"
@@ -102,10 +102,10 @@ export function DocumentsListClient({ projectId, initialDocs }: Props) {
       )}
 
       {initialDocs.length === 0 ? (
-        <Card className="border-dashed bg-white">
-          <CardContent className="p-12 text-center text-slate-500 space-y-3">
-            <FileText className="h-10 w-10 text-slate-300 mx-auto" />
-            <p className="text-sm font-semibold text-slate-700">
+        <Card className="border-dashed bg-white dark:bg-slate-900/40">
+          <CardContent className="p-12 text-center text-slate-500 dark:text-slate-400 space-y-3">
+            <FileText className="h-10 w-10 text-slate-300 dark:text-slate-600 mx-auto" />
+            <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">
               No documents created yet
             </p>
             <p className="text-xs text-slate-400">
@@ -127,12 +127,12 @@ export function DocumentsListClient({ projectId, initialDocs }: Props) {
             return (
               <Card
                 key={doc.id}
-                className="bg-white hover:border-slate-300 transition-all shadow-2xs"
+                className="bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-700 transition-all shadow-2xs"
               >
                 <CardContent className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="space-y-1.5">
                     <div className="flex items-center gap-2">
-                      <h3 className="text-base font-bold text-slate-900">
+                      <h3 className="text-base font-bold text-slate-900 dark:text-white">
                         {doc.title}
                       </h3>
                       <Badge variant="secondary" className="text-[10px]">
@@ -140,14 +140,14 @@ export function DocumentsListClient({ projectId, initialDocs }: Props) {
                       </Badge>
                     </div>
 
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
                       Last revision by{" "}
-                      <span className="font-semibold text-slate-700">
+                      <span className="font-semibold text-slate-700 dark:text-slate-300">
                         {ver?.author?.full_name || "Team member"}
                       </span>{" "}
                       • {formatDate(ver?.created_at || doc.created_at)}
                       {ver?.change_summary && (
-                        <span className="italic text-slate-400">
+                        <span className="italic text-slate-400 dark:text-slate-500">
                           {" "}
                           ({ver.change_summary})
                         </span>

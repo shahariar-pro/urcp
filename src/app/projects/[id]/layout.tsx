@@ -41,11 +41,11 @@ export default async function ProjectLayout({ children, params }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col transition-colors">
       <Navbar userProfile={profile} />
 
       {/* Project Header Banner */}
-      <div className="border-b border-slate-200 bg-white shadow-2xs">
+      <div className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="space-y-1">
@@ -66,7 +66,7 @@ export default async function ProjectLayout({ children, params }: Props) {
                   {project.status.replace("_", " ")}
                 </Badge>
               </div>
-              <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+              <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
                 {project.title}
               </h1>
             </div>
@@ -80,14 +80,14 @@ export default async function ProjectLayout({ children, params }: Props) {
               </Link>
               <div className="flex flex-col items-end">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-slate-500 font-medium">Overall Progress</span>
-                  <span className="text-sm font-bold text-blue-600">
+                  <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Overall Progress</span>
+                  <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
                     {project.progress_percent}%
                   </span>
                 </div>
-                <div className="w-36 h-2 bg-slate-100 rounded-full overflow-hidden mt-1.5 border border-slate-200">
+                <div className="w-36 h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mt-1.5 border border-slate-200 dark:border-slate-700">
                   <div
-                    className="h-full bg-blue-600 rounded-full transition-all duration-300"
+                    className="h-full bg-blue-600 dark:bg-blue-500 rounded-full transition-all duration-300"
                     style={{ width: `${project.progress_percent}%` }}
                   />
                 </div>

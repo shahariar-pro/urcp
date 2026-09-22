@@ -24,25 +24,25 @@ export function ProposalReviewForm({ proposalId, currentStatus }: Props) {
   });
 
   return (
-    <Card className="border-blue-200 bg-white shadow-sm">
-      <CardHeader className="pb-3 border-b border-slate-100 bg-blue-50/40 rounded-t-lg">
+    <Card className="border-blue-200 dark:border-blue-900/60 bg-white dark:bg-slate-900 shadow-sm">
+      <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800 bg-blue-50/40 dark:bg-blue-950/40 rounded-t-lg">
         <div className="flex items-center gap-2">
-          <ShieldAlert className="h-4 w-4 text-blue-600" />
-          <CardTitle className="text-base font-semibold text-blue-950">
+          <ShieldAlert className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+          <CardTitle className="text-base font-semibold text-blue-950 dark:text-blue-200">
             Supervisor Decision
           </CardTitle>
         </div>
       </CardHeader>
       <CardContent className="pt-4 space-y-4">
         {state?.error && (
-          <div className="flex items-center gap-2 rounded-md bg-red-50 p-3 text-xs text-red-700 border border-red-200">
+          <div className="flex items-center gap-2 rounded-lg bg-red-50 dark:bg-red-950/50 p-3 text-xs text-red-700 dark:text-red-400 border border-red-200 dark:border-red-900/60">
             <AlertCircle className="h-4 w-4 shrink-0" />
             <p>{state.error}</p>
           </div>
         )}
 
         {state?.success && (
-          <div className="flex items-center gap-2 rounded-md bg-emerald-50 p-3 text-xs text-emerald-800 border border-emerald-200">
+          <div className="flex items-center gap-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 p-3 text-xs text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900/60">
             <CheckCircle2 className="h-4 w-4 shrink-0" />
             <p>{state.success}</p>
           </div>
@@ -53,17 +53,17 @@ export function ProposalReviewForm({ proposalId, currentStatus }: Props) {
           <input type="hidden" name="decision" value={selectedDecision} />
 
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+            <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
               Select Formal Action
             </label>
             <div className="grid grid-cols-3 gap-1.5">
               <button
                 type="button"
                 onClick={() => setSelectedDecision("approved")}
-                className={`py-2 px-2 text-xs font-semibold rounded-md border text-center transition-all cursor-pointer ${
+                className={`py-2 px-2 text-xs font-semibold rounded-lg border text-center transition-all cursor-pointer ${
                   selectedDecision === "approved"
                     ? "bg-emerald-600 text-white border-emerald-600 shadow-xs"
-                    : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
+                    : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
               >
                 Approve
@@ -71,10 +71,10 @@ export function ProposalReviewForm({ proposalId, currentStatus }: Props) {
               <button
                 type="button"
                 onClick={() => setSelectedDecision("changes_requested")}
-                className={`py-2 px-2 text-xs font-semibold rounded-md border text-center transition-all cursor-pointer ${
+                className={`py-2 px-2 text-xs font-semibold rounded-lg border text-center transition-all cursor-pointer ${
                   selectedDecision === "changes_requested"
                     ? "bg-amber-600 text-white border-amber-600 shadow-xs"
-                    : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
+                    : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
               >
                 Changes
@@ -82,10 +82,10 @@ export function ProposalReviewForm({ proposalId, currentStatus }: Props) {
               <button
                 type="button"
                 onClick={() => setSelectedDecision("rejected")}
-                className={`py-2 px-2 text-xs font-semibold rounded-md border text-center transition-all cursor-pointer ${
+                className={`py-2 px-2 text-xs font-semibold rounded-lg border text-center transition-all cursor-pointer ${
                   selectedDecision === "rejected"
                     ? "bg-red-600 text-white border-red-600 shadow-xs"
-                    : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
+                    : "bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700"
                 }`}
               >
                 Reject
@@ -94,7 +94,7 @@ export function ProposalReviewForm({ proposalId, currentStatus }: Props) {
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 flex items-center justify-between">
+            <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center justify-between">
               <span>
                 Formal Feedback{" "}
                 {selectedDecision !== "approved" && (

@@ -15,6 +15,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { GraduationCap, AlertCircle, Lock, Mail } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 function LoginForm() {
   const searchParams = useSearchParams();
@@ -26,10 +27,10 @@ function LoginForm() {
   });
 
   return (
-    <Card className="border-slate-200/80 shadow-md">
+    <Card className="border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-md">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-xl">Sign in</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-xl text-slate-900 dark:text-white">Sign in</CardTitle>
+        <CardDescription className="text-slate-500 dark:text-slate-400">
           Department of Computer Science research portal
         </CardDescription>
       </CardHeader>
@@ -38,14 +39,14 @@ function LoginForm() {
           <input type="hidden" name="redirectTo" value={redirectTo} />
 
           {state?.error && (
-            <div className="flex items-center gap-2 rounded-md bg-red-50 p-3 text-sm text-red-700 border border-red-200">
+            <div className="flex items-center gap-2 rounded-lg bg-red-50 dark:bg-red-950/50 p-3 text-sm text-red-700 dark:text-red-400 border border-red-200 dark:border-red-900/60">
               <AlertCircle className="h-4 w-4 shrink-0" />
               <p>{state.error}</p>
             </div>
           )}
 
           <div className="space-y-1.5">
-            <label className="text-sm font-medium text-slate-700">
+            <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
               University Email (@student.aiub.edu or @aiub.edu)
             </label>
             <div className="relative">
@@ -56,18 +57,18 @@ function LoginForm() {
                 required
                 className="pl-9"
               />
-              <Mail className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+              <Mail className="absolute left-3 top-2.5 h-4 w-4 text-slate-400 dark:text-slate-500" />
             </div>
           </div>
 
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-medium text-slate-700">
+              <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
                 Password
               </label>
               <Link
                 href="/reset-password"
-                className="text-xs text-blue-600 hover:underline"
+                className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
               >
                 Forgot password?
               </Link>
@@ -80,7 +81,7 @@ function LoginForm() {
                 required
                 className="pl-9"
               />
-              <Lock className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+              <Lock className="absolute left-3 top-2.5 h-4 w-4 text-slate-400 dark:text-slate-500" />
             </div>
           </div>
         </CardContent>
@@ -88,11 +89,11 @@ function LoginForm() {
           <Button type="submit" className="w-full" disabled={isPending}>
             {isPending ? "Signing in..." : "Sign in"}
           </Button>
-          <div className="text-center text-sm text-slate-600">
+          <div className="text-center text-sm text-slate-600 dark:text-slate-400">
             Don&apos;t have an account?{" "}
             <Link
               href="/register"
-              className="font-medium text-blue-600 hover:underline"
+              className="font-medium text-blue-600 dark:text-blue-400 hover:underline"
             >
               Register here
             </Link>
@@ -105,16 +106,20 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-slate-50 px-4 py-12">
+    <div className="relative flex min-h-screen flex-col items-center justify-center bg-slate-50 dark:bg-slate-950 px-4 py-12 transition-colors">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
+
       <div className="w-full max-w-md space-y-6">
         <div className="flex flex-col items-center text-center space-y-2">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600 text-white shadow-md">
             <GraduationCap className="h-7 w-7" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
             AIUB Research Platform
           </h1>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-slate-500 dark:text-slate-400">
             Sign in with your official university credentials
           </p>
         </div>
@@ -129,7 +134,7 @@ export default function LoginPage() {
           <LoginForm />
         </Suspense>
 
-        <div className="text-center text-xs text-slate-400">
+        <div className="text-center text-xs text-slate-400 dark:text-slate-500">
           American International University-Bangladesh • CSC 3114
         </div>
       </div>

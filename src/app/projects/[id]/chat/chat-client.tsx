@@ -91,23 +91,23 @@ export function ChatClient({ projectId, initialMessages, currentUser }: Props) {
   return (
     <div className="space-y-3">
       {/* Privacy Notice Banner */}
-      <div className="flex items-center gap-2 p-2.5 rounded-lg bg-blue-50/70 border border-blue-200 text-xs text-blue-900">
-        <Lock className="h-3.5 w-3.5 text-blue-600 shrink-0" />
+      <div className="flex items-center gap-2 p-2.5 rounded-lg bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 text-xs text-blue-900 dark:text-blue-200">
+        <Lock className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
         <span>
           <strong>Strictly Scoped:</strong> Only enrolled project members can read or post to this chat.
           Admins and third parties do not have access.
         </span>
       </div>
 
-      <Card className="bg-white border-slate-200 shadow-2xs flex flex-col h-[600px]">
-        <CardHeader className="py-3 px-5 border-b border-slate-100 flex flex-row items-center justify-between">
+      <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xs flex flex-col h-[600px]">
+        <CardHeader className="py-3 px-5 border-b border-slate-100 dark:border-slate-800 flex flex-row items-center justify-between">
           <div className="flex items-center gap-2">
-            <MessageSquare className="h-4 w-4 text-blue-600" />
-            <CardTitle className="text-sm font-bold text-slate-800">
+            <MessageSquare className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+            <CardTitle className="text-sm font-bold text-slate-800 dark:text-slate-200">
               Live Team Thread
             </CardTitle>
           </div>
-          <span className="text-[11px] text-slate-400">
+          <span className="text-[11px] text-slate-400 dark:text-slate-500">
             {messages.length} messages
           </span>
         </CardHeader>
@@ -115,9 +115,9 @@ export function ChatClient({ projectId, initialMessages, currentUser }: Props) {
         {/* Message Stream */}
         <CardContent className="flex-1 p-4 overflow-y-auto space-y-4">
           {messages.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center text-center text-slate-400 text-xs space-y-1">
-              <MessageSquare className="h-8 w-8 text-slate-300" />
-              <p className="font-semibold text-slate-600">No messages yet</p>
+            <div className="h-full flex flex-col items-center justify-center text-center text-slate-400 dark:text-slate-500 text-xs space-y-1">
+              <MessageSquare className="h-8 w-8 text-slate-300 dark:text-slate-600" />
+              <p className="font-semibold text-slate-600 dark:text-slate-300">No messages yet</p>
               <p>Start the conversation with your supervisor and group members.</p>
             </div>
           ) : (
@@ -133,7 +133,7 @@ export function ChatClient({ projectId, initialMessages, currentUser }: Props) {
                   }`}
                 >
                   <div className="flex items-center gap-1.5 mb-1 px-1">
-                    <span className="text-[11px] font-semibold text-slate-700">
+                    <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-300">
                       {isMine ? "You" : sender?.full_name || "Member"}
                     </span>
                     {sender?.role && (
@@ -144,7 +144,7 @@ export function ChatClient({ projectId, initialMessages, currentUser }: Props) {
                         {sender.role}
                       </Badge>
                     )}
-                    <span className="text-[10px] text-slate-400">
+                    <span className="text-[10px] text-slate-400 dark:text-slate-500">
                       {formatDateTime(msg.created_at)}
                     </span>
                   </div>
@@ -153,7 +153,7 @@ export function ChatClient({ projectId, initialMessages, currentUser }: Props) {
                     className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-xs leading-relaxed ${
                       isMine
                         ? "bg-blue-600 text-white rounded-tr-xs shadow-xs"
-                        : "bg-slate-100 text-slate-800 rounded-tl-xs border border-slate-200/60"
+                        : "bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-tl-xs border border-slate-200/60 dark:border-slate-700/60"
                     }`}
                   >
                     <p className="whitespace-pre-wrap">{msg.body}</p>
@@ -166,13 +166,13 @@ export function ChatClient({ projectId, initialMessages, currentUser }: Props) {
         </CardContent>
 
         {/* Chat Input Bar */}
-        <div className="p-3 border-t border-slate-100 bg-slate-50/50 rounded-b-lg">
+        <div className="p-3 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/80 rounded-b-lg">
           <form onSubmit={handleSend} className="flex items-center gap-2">
             <Input
               placeholder="Type your message to the team..."
               value={inputBody}
               onChange={(e) => setInputBody(e.target.value)}
-              className="text-xs h-10 bg-white"
+              className="text-xs h-10 bg-white dark:bg-slate-900"
             />
             <Button
               type="submit"

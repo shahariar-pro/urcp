@@ -124,24 +124,24 @@ export function EditorClient({
   return (
     <div className="space-y-6">
       {/* Top Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs">
         <div className="flex items-center gap-3">
           <Link
             href={`/projects/${projectId}/documents`}
-            className="text-slate-400 hover:text-slate-600 transition-colors"
+            className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
           </Link>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-base font-bold text-slate-900">
+              <h2 className="text-base font-bold text-slate-900 dark:text-white">
                 {document.title}
               </h2>
               <Badge variant="default" className="text-[10px]">
                 Version {currentVersion?.version_number || 1}
               </Badge>
             </div>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               {wordCount} words • {lineCount} lines • Saved {formatDateTime(currentVersion?.created_at)}
             </p>
           </div>
@@ -177,8 +177,8 @@ export function EditorClient({
         <div
           className={`p-3 text-xs rounded-lg border ${
             saveMessage.startsWith("Error")
-              ? "bg-red-50 text-red-700 border-red-200"
-              : "bg-emerald-50 text-emerald-800 border-emerald-200"
+              ? "bg-red-50 dark:bg-red-950/50 text-red-700 dark:text-red-400 border-red-200 dark:border-red-900/60"
+              : "bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-400 border-emerald-200 dark:border-emerald-900/60"
           }`}
         >
           {saveMessage}
@@ -189,12 +189,12 @@ export function EditorClient({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Text Editor (Col 1 & 2) */}
         <div className="lg:col-span-2 space-y-3">
-          <Card className="bg-white border-slate-200 shadow-2xs">
-            <CardHeader className="py-2.5 px-4 border-b border-slate-100 flex flex-row items-center justify-between bg-slate-50/50 rounded-t-lg">
-              <span className="text-xs font-semibold text-slate-600">
+          <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xs">
+            <CardHeader className="py-2.5 px-4 border-b border-slate-100 dark:border-slate-800 flex flex-row items-center justify-between bg-slate-50/50 dark:bg-slate-800/40 rounded-t-lg">
+              <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">
                 Markdown Document Editor
               </span>
-              <div className="text-[11px] text-slate-400">
+              <div className="text-[11px] text-slate-400 dark:text-slate-500">
                 Every save retains a permanent historical version
               </div>
             </CardHeader>
@@ -203,14 +203,14 @@ export function EditorClient({
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
                 rows={24}
-                className="w-full border-0 rounded-none rounded-b-lg p-5 font-mono text-xs leading-relaxed focus-visible:ring-0 focus-visible:border-0 resize-y"
+                className="w-full border-0 rounded-none rounded-b-lg p-5 font-mono text-xs leading-relaxed focus-visible:ring-0 focus-visible:border-0 resize-y bg-transparent dark:text-slate-100"
                 placeholder="# Introduction..."
               />
             </CardContent>
           </Card>
 
           {/* Change Summary Input */}
-          <div className="bg-white p-3 rounded-lg border border-slate-200 flex items-center gap-3">
+          <div className="bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800 flex items-center gap-3">
             <Input
               placeholder="Summary of changes (e.g. Added section 2.1 or updated references)..."
               value={changeSummary}
@@ -230,11 +230,11 @@ export function EditorClient({
 
         {/* Inline Supervisor & Team Comments (Col 3) */}
         <div className="space-y-4">
-          <Card className="bg-white border-slate-200 shadow-2xs">
-            <CardHeader className="pb-3 border-b border-slate-100">
+          <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xs">
+            <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-bold flex items-center gap-2">
-                  <MessageSquare className="h-4 w-4 text-blue-600" />
+                <CardTitle className="text-sm font-bold flex items-center gap-2 text-slate-900 dark:text-white">
+                  <MessageSquare className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                   Supervisor & Team Notes
                 </CardTitle>
                 <div className="flex items-center gap-1 text-[11px]">
@@ -242,8 +242,8 @@ export function EditorClient({
                     onClick={() => setCommentFilter("open")}
                     className={`px-2 py-0.5 rounded cursor-pointer ${
                       commentFilter === "open"
-                        ? "bg-blue-600 text-white font-medium"
-                        : "text-slate-500 hover:bg-slate-100"
+                        ? "bg-blue-600 text-white font-medium shadow-xs"
+                        : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                     }`}
                   >
                     Open
@@ -252,8 +252,8 @@ export function EditorClient({
                     onClick={() => setCommentFilter("resolved")}
                     className={`px-2 py-0.5 rounded cursor-pointer ${
                       commentFilter === "resolved"
-                        ? "bg-blue-600 text-white font-medium"
-                        : "text-slate-500 hover:bg-slate-100"
+                        ? "bg-blue-600 text-white font-medium shadow-xs"
+                        : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                     }`}
                   >
                     Resolved
@@ -302,27 +302,27 @@ export function EditorClient({
                         key={c.id}
                         className={`p-3 rounded-lg border text-xs space-y-2 transition-colors ${
                           isResolved
-                            ? "bg-slate-50 border-slate-200 opacity-70"
-                            : "bg-blue-50/40 border-blue-200"
+                            ? "bg-slate-50 dark:bg-slate-800/40 border-slate-200 dark:border-slate-800 opacity-70"
+                            : "bg-blue-50/40 dark:bg-blue-950/30 border-blue-200 dark:border-blue-900/50"
                         }`}
                       >
                         <div className="flex items-start justify-between gap-2">
                           <div>
-                            <span className="font-semibold text-slate-800">
+                            <span className="font-semibold text-slate-800 dark:text-slate-200">
                               {c.author?.full_name || "Author"}
                             </span>
                             {c.section_ref && (
-                              <span className="block text-[10px] text-blue-600 font-medium">
+                              <span className="block text-[10px] text-blue-600 dark:text-blue-400 font-medium">
                                 Anchor: {c.section_ref}
                               </span>
                             )}
                           </div>
-                          <span className="text-[10px] text-slate-400">
+                          <span className="text-[10px] text-slate-400 dark:text-slate-500">
                             {formatDateTime(c.created_at)}
                           </span>
                         </div>
 
-                        <p className="text-slate-700 whitespace-pre-wrap">
+                        <p className="text-slate-700 dark:text-slate-300 whitespace-pre-wrap">
                           {c.body}
                         </p>
 
@@ -332,8 +332,8 @@ export function EditorClient({
                             onClick={() => handleToggleComment(c.id, c.status)}
                             className={`text-[10px] font-semibold px-2 py-0.5 rounded flex items-center gap-1 cursor-pointer ${
                               isResolved
-                                ? "bg-slate-200 text-slate-700 hover:bg-slate-300"
-                                : "bg-emerald-100 text-emerald-800 hover:bg-emerald-200"
+                                ? "bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-300"
+                                : "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-400 hover:bg-emerald-200"
                             }`}
                           >
                             <Check className="h-3 w-3" />

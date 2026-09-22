@@ -26,7 +26,7 @@ export function WorkspaceNav({ projectId }: Props) {
       exact: true,
     },
     {
-      name: "Literature Repository",
+      name: "Literature",
       href: `/projects/${projectId}/literature`,
       icon: BookOpen,
       exact: false,
@@ -38,19 +38,19 @@ export function WorkspaceNav({ projectId }: Props) {
       exact: false,
     },
     {
-      name: "Drafts & Documents",
+      name: "Drafts & Docs",
       href: `/projects/${projectId}/documents`,
       icon: FileEdit,
       exact: false,
     },
     {
-      name: "Project Chat",
+      name: "Chat",
       href: `/projects/${projectId}/chat`,
       icon: MessageSquare,
       exact: false,
     },
     {
-      name: "Meetings / Calendar",
+      name: "Calendar",
       href: `/projects/${projectId}/calendar`,
       icon: Calendar,
       exact: false,
@@ -58,7 +58,7 @@ export function WorkspaceNav({ projectId }: Props) {
   ];
 
   return (
-    <div className="flex items-center gap-1 overflow-x-auto border-b border-slate-200">
+    <div className="flex items-center gap-1.5 overflow-x-auto border-b border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 backdrop-blur px-4 py-2 scrollbar-none -mx-4 sm:mx-0 sm:rounded-lg sm:border sm:p-1.5 sm:mb-6">
       {navItems.map((item) => {
         const Icon = item.icon;
         const isActive = item.exact
@@ -69,14 +69,14 @@ export function WorkspaceNav({ projectId }: Props) {
           <Link
             key={item.href}
             href={item.href}
-            className={`flex items-center gap-2 px-4 py-2.5 text-xs font-semibold whitespace-nowrap border-b-2 transition-colors ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium whitespace-nowrap rounded-md transition-all shrink-0 select-none ${
               isActive
-                ? "border-blue-600 text-blue-600 bg-blue-50/50"
-                : "border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                ? "bg-blue-600 text-white font-semibold shadow-xs"
+                : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
             }`}
           >
-            <Icon className="h-4 w-4" />
-            {item.name}
+            <Icon className="h-3.5 w-3.5 shrink-0" />
+            <span>{item.name}</span>
           </Link>
         );
       })}

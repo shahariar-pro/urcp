@@ -22,7 +22,6 @@ import {
   CheckCircle2,
   Flag,
   X,
-  ArrowRight,
 } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 
@@ -73,15 +72,15 @@ export function TasksClient({
   return (
     <div className="space-y-8">
       {/* Action Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs">
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 text-xs text-slate-600">
-            <Flag className="h-4 w-4 text-blue-600" />
+          <div className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-300">
+            <Flag className="h-4 w-4 text-blue-600 dark:text-blue-400" />
             <span className="font-semibold">{milestones.length} Milestones</span>
           </div>
-          <span className="text-slate-300">•</span>
-          <div className="flex items-center gap-1.5 text-xs text-slate-600">
-            <CheckSquare className="h-4 w-4 text-emerald-600" />
+          <span className="text-slate-300 dark:text-slate-700">•</span>
+          <div className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-300">
+            <CheckSquare className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
             <span className="font-semibold">
               {completeTasks.length} / {tasks.length} Tasks Finished
             </span>
@@ -111,15 +110,15 @@ export function TasksClient({
 
       {/* New Milestone Modal */}
       {isMilestoneOpen && (
-        <Card className="border-blue-200 bg-white shadow-md animate-in fade-in duration-200">
-          <CardHeader className="pb-3 border-b border-slate-100 flex flex-row items-center justify-between">
-            <CardTitle className="text-base font-bold flex items-center gap-2">
-              <Flag className="h-4 w-4 text-blue-600" />
+        <Card className="border-blue-200 dark:border-blue-900/60 bg-white dark:bg-slate-900 shadow-md animate-in fade-in duration-200">
+          <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800 flex flex-row items-center justify-between">
+            <CardTitle className="text-base font-bold flex items-center gap-2 text-slate-900 dark:text-white">
+              <Flag className="h-4 w-4 text-blue-600 dark:text-blue-400" />
               Create Project Milestone
             </CardTitle>
             <button
               onClick={() => setIsMilestoneOpen(false)}
-              className="text-slate-400 hover:text-slate-600 cursor-pointer"
+              className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
             >
               <X className="h-4 w-4" />
             </button>
@@ -132,11 +131,11 @@ export function TasksClient({
             >
               <input type="hidden" name="projectId" value={projectId} />
               {milestoneState?.error && (
-                <p className="text-xs text-red-600">{milestoneState.error}</p>
+                <p className="text-xs text-red-600 dark:text-red-400">{milestoneState.error}</p>
               )}
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
                   Milestone Title
                 </label>
                 <Input
@@ -148,13 +147,13 @@ export function TasksClient({
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
                   Target Due Date
                 </label>
                 <Input type="date" name="dueDate" required className="text-xs" />
               </div>
 
-              <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
+              <div className="flex justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
                 <Button
                   type="button"
                   variant="outline"
@@ -174,15 +173,15 @@ export function TasksClient({
 
       {/* New Task Modal */}
       {isTaskOpen && (
-        <Card className="border-blue-200 bg-white shadow-md animate-in fade-in duration-200">
-          <CardHeader className="pb-3 border-b border-slate-100 flex flex-row items-center justify-between">
-            <CardTitle className="text-base font-bold flex items-center gap-2">
-              <CheckSquare className="h-4 w-4 text-emerald-600" />
+        <Card className="border-blue-200 dark:border-blue-900/60 bg-white dark:bg-slate-900 shadow-md animate-in fade-in duration-200">
+          <CardHeader className="pb-3 border-b border-slate-100 dark:border-slate-800 flex flex-row items-center justify-between">
+            <CardTitle className="text-base font-bold flex items-center gap-2 text-slate-900 dark:text-white">
+              <CheckSquare className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
               Add Research Task
             </CardTitle>
             <button
               onClick={() => setIsTaskOpen(false)}
-              className="text-slate-400 hover:text-slate-600 cursor-pointer"
+              className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer"
             >
               <X className="h-4 w-4" />
             </button>
@@ -195,11 +194,11 @@ export function TasksClient({
             >
               <input type="hidden" name="projectId" value={projectId} />
               {taskState?.error && (
-                <p className="text-xs text-red-600">{taskState.error}</p>
+                <p className="text-xs text-red-600 dark:text-red-400">{taskState.error}</p>
               )}
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
                   Task Title
                 </label>
                 <Input
@@ -212,12 +211,12 @@ export function TasksClient({
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-slate-700">
+                  <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
                     Milestone (Optional)
                   </label>
                   <select
                     name="milestoneId"
-                    className="flex h-9 w-full rounded-md border border-slate-300 bg-white px-3 py-1 text-xs shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+                    className="flex h-9 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-3 py-1 text-xs shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
                   >
                     <option value="">None / Standalone</option>
                     {milestones.map((m) => (
@@ -229,12 +228,12 @@ export function TasksClient({
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-slate-700">
+                  <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
                     Assignee
                   </label>
                   <select
                     name="assigneeId"
-                    className="flex h-9 w-full rounded-md border border-slate-300 bg-white px-3 py-1 text-xs shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+                    className="flex h-9 w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 px-3 py-1 text-xs shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
                   >
                     <option value="">Unassigned</option>
                     {members.map((m) => (
@@ -246,14 +245,14 @@ export function TasksClient({
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-slate-700">
+                  <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
                     Due Date
                   </label>
                   <Input type="date" name="dueDate" className="text-xs" />
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
+              <div className="flex justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
                 <Button
                   type="button"
                   variant="outline"
@@ -274,15 +273,15 @@ export function TasksClient({
       {/* Milestones Row */}
       {milestones.length > 0 && (
         <div className="space-y-3">
-          <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
             Project Milestones
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {milestones.map((m) => (
-              <Card key={m.id} className="bg-white border-slate-200 shadow-2xs">
+              <Card key={m.id} className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xs">
                 <CardContent className="p-4 space-y-2">
                   <div className="flex items-start justify-between gap-2">
-                    <h4 className="font-semibold text-sm text-slate-900">
+                    <h4 className="font-semibold text-sm text-slate-900 dark:text-white">
                       {m.title}
                     </h4>
                     <Badge variant="outline" className="text-[10px]">
@@ -300,10 +299,10 @@ export function TasksClient({
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Col 1: Pending */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between p-3 rounded-lg bg-slate-100 border border-slate-200">
+          <div className="flex items-center justify-between p-3 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
             <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-slate-500" />
-              <span className="font-bold text-xs text-slate-800 uppercase tracking-wider">
+              <Clock className="h-4 w-4 text-slate-500 dark:text-slate-400" />
+              <span className="font-bold text-xs text-slate-800 dark:text-slate-200 uppercase tracking-wider">
                 Pending
               </span>
             </div>
@@ -322,7 +321,7 @@ export function TasksClient({
               />
             ))}
             {pendingTasks.length === 0 && (
-              <p className="text-xs text-slate-400 italic text-center py-6 border border-dashed rounded-lg">
+              <p className="text-xs text-slate-400 italic text-center py-6 border border-dashed dark:border-slate-800 rounded-lg">
                 No pending tasks.
               </p>
             )}
@@ -331,10 +330,10 @@ export function TasksClient({
 
         {/* Col 2: In Progress */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between p-3 rounded-lg bg-blue-50 border border-blue-200">
+          <div className="flex items-center justify-between p-3 rounded-lg bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-900/60">
             <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-blue-600" />
-              <span className="font-bold text-xs text-blue-900 uppercase tracking-wider">
+              <Clock className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+              <span className="font-bold text-xs text-blue-900 dark:text-blue-200 uppercase tracking-wider">
                 In Progress
               </span>
             </div>
@@ -353,7 +352,7 @@ export function TasksClient({
               />
             ))}
             {inProgressTasks.length === 0 && (
-              <p className="text-xs text-slate-400 italic text-center py-6 border border-dashed rounded-lg">
+              <p className="text-xs text-slate-400 italic text-center py-6 border border-dashed dark:border-slate-800 rounded-lg">
                 No tasks in progress.
               </p>
             )}
@@ -362,10 +361,10 @@ export function TasksClient({
 
         {/* Col 3: Complete */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between p-3 rounded-lg bg-emerald-50 border border-emerald-200">
+          <div className="flex items-center justify-between p-3 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-900/60">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-              <span className="font-bold text-xs text-emerald-900 uppercase tracking-wider">
+              <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+              <span className="font-bold text-xs text-emerald-900 dark:text-emerald-200 uppercase tracking-wider">
                 Completed
               </span>
             </div>
@@ -384,7 +383,7 @@ export function TasksClient({
               />
             ))}
             {completeTasks.length === 0 && (
-              <p className="text-xs text-slate-400 italic text-center py-6 border border-dashed rounded-lg">
+              <p className="text-xs text-slate-400 italic text-center py-6 border border-dashed dark:border-slate-800 rounded-lg">
                 No completed tasks yet.
               </p>
             )}
@@ -405,10 +404,10 @@ function TaskCard({
   onDelete: (id: string) => void;
 }) {
   return (
-    <Card className="bg-white hover:border-slate-300 transition-all shadow-2xs">
+    <Card className="bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-700 transition-all shadow-2xs">
       <CardContent className="p-4 space-y-3">
         <div className="flex items-start justify-between gap-2">
-          <h4 className="text-sm font-semibold text-slate-900 leading-snug">
+          <h4 className="text-sm font-semibold text-slate-900 dark:text-white leading-snug">
             {task.title}
           </h4>
           <button
@@ -420,7 +419,7 @@ function TaskCard({
           </button>
         </div>
 
-        <div className="flex items-center justify-between gap-2 text-[11px] text-slate-500 pt-1 border-t border-slate-100">
+        <div className="flex items-center justify-between gap-2 text-[11px] text-slate-500 dark:text-slate-400 pt-1 border-t border-slate-100 dark:border-slate-800">
           <div className="flex items-center gap-1 truncate">
             <User className="h-3 w-3 text-slate-400 shrink-0" />
             <span className="truncate">
@@ -441,7 +440,7 @@ function TaskCard({
           {task.status !== "pending" && (
             <button
               onClick={() => onStatusChange(task.id, "pending")}
-              className="text-[10px] text-slate-500 hover:text-slate-800 bg-slate-100 px-2 py-0.5 rounded cursor-pointer"
+              className="text-[10px] text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded cursor-pointer transition-colors"
             >
               To Pending
             </button>
@@ -449,7 +448,7 @@ function TaskCard({
           {task.status !== "in_progress" && (
             <button
               onClick={() => onStatusChange(task.id, "in_progress")}
-              className="text-[10px] text-blue-600 hover:text-blue-800 bg-blue-50 px-2 py-0.5 rounded cursor-pointer"
+              className="text-[10px] text-blue-600 dark:text-blue-400 hover:text-blue-800 bg-blue-50 dark:bg-blue-950/60 px-2 py-0.5 rounded cursor-pointer transition-colors"
             >
               In Progress
             </button>
@@ -457,7 +456,7 @@ function TaskCard({
           {task.status !== "complete" && (
             <button
               onClick={() => onStatusChange(task.id, "complete")}
-              className="text-[10px] text-emerald-600 hover:text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded cursor-pointer font-medium"
+              className="text-[10px] text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded cursor-pointer font-medium transition-colors"
             >
               Complete ✓
             </button>

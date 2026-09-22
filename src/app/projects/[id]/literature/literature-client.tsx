@@ -98,103 +98,104 @@ export function LiteratureClient({ projectId, initialItems }: Props) {
   };
 
   const handleDelete = async (itemId: string) => {
-    if (!confirm("Are you sure you want to remove this paper from the workspace?")) {
-      return;
-    }
+    if (!confirm("Are you sure you want to delete this literature item?")) return;
     setItems((prev) => prev.filter((i) => i.id !== itemId));
     await deleteLiteratureItemAction(itemId, projectId);
   };
 
   return (
     <div className="space-y-6">
-      {/* Top Filter and Actions Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">
-        <div className="flex flex-1 items-center gap-3">
-          <div className="relative flex-1 max-w-md">
+      {/* Search & Actions Bar */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-2 flex-1 max-w-md">
+          <div className="relative w-full">
             <Input
-              placeholder="Search literature by paper title, authors, or tag..."
+              placeholder="Search literature by title, author, or folder..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 h-9 text-xs"
+              className="pl-9 h-9"
             />
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-          </div>
-
-          <div className="flex items-center gap-1.5 overflow-x-auto text-xs">
-            <button
-              onClick={() => setSelectedFolder("all")}
-              className={`px-3 py-1.5 rounded-md font-medium transition-colors cursor-pointer ${
-                selectedFolder === "all"
-                  ? "bg-blue-600 text-white"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-              }`}
-            >
-              All Folders
-            </button>
-            {folderTags.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => setSelectedFolder(tag)}
-                className={`px-3 py-1.5 rounded-md font-medium transition-colors cursor-pointer ${
-                  selectedFolder === tag
-                    ? "bg-blue-600 text-white"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-                }`}
-              >
-                {tag}
-              </button>
-            ))}
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400 dark:text-slate-500" />
           </div>
         </div>
 
-        <Button
-          onClick={() => setIsUploadOpen(true)}
-          className="gap-1.5 text-xs h-9 shadow-sm shrink-0"
-        >
-          <Plus className="h-4 w-4" />
-          Upload Research Paper
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            size="sm"
+            onClick={() => setIsUploadOpen(!isUploadOpen)}
+            className="gap-1.5 shadow-xs whitespace-nowrap"
+          >
+            {isUploadOpen ? <X className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+            {isUploadOpen ? "Close Form" : "Upload Literature"}
+          </Button>
+        </div>
       </div>
 
-      {/* Upload Modal / Form */}
-      {isUploadOpen && (
-        <Card className="border-blue-200 bg-white shadow-md animate-in fade-in duration-200">
-          <CardContent className="p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <div className="flex items-center gap-2">
-                <BookOpen className="h-5 w-5 text-blue-600" />
-                <h3 className="font-bold text-slate-900 text-base">
-                  Upload Literature Item
-                </h3>
-              </div>
+      {/* Folder Pills */}
+      {folderTags.length > 0 && (
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 mr-1 flex items-center gap-1">
+            <Tag className="h-3 w-3" /> Folders:
+          </span>
+          <button
+            onClick={() => setSelectedFolder("all")}
+            className={`text-xs px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${
+              selectedFolder === "all"
+                ? "bg-blue-600 text-white border-blue-600 font-medium shadow-xs"
+                : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800"
+            }`}
+          >
+            All Papers ({items.length})
+          </button>
+          {folderTags.map((tag) => {
+            const isSelected = selectedFolder === tag;
+            const count = items.filter((i) => i.folder_tag === tag).length;
+            return (
               <button
-                onClick={() => setIsUploadOpen(false)}
-                className="text-slate-400 hover:text-slate-600 cursor-pointer"
+                key={tag}
+                onClick={() => setSelectedFolder(isSelected ? "all" : tag)}
+                className={`text-xs px-2.5 py-1 rounded-full border transition-colors cursor-pointer ${
+                  isSelected
+                    ? "bg-blue-600 text-white border-blue-600 font-medium shadow-xs"
+                    : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800"
+                }`}
               >
-                <X className="h-5 w-5" />
+                {tag} ({count})
               </button>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Upload & Duplicate Warning Form Modal/Card */}
+      {isUploadOpen && (
+        <Card className="border-blue-200 dark:border-blue-900/60 bg-blue-50/20 dark:bg-blue-950/20 shadow-xs animate-in fade-in duration-150">
+          <CardContent className="p-6 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <BookOpen className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                Add New Literature Item
+              </h3>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsUploadOpen(false)}
+                className="h-7 w-7"
+              >
+                <X className="h-4 w-4" />
+              </Button>
             </div>
 
-            {state?.error && (
-              <div className="p-3 bg-red-50 text-red-700 text-xs rounded-md border border-red-200">
-                {state.error}
-              </div>
-            )}
-
-            {/* DUPLICATE WARNING ALERT (Warn, don't block per SRS §6 Scope 2) */}
             {duplicateCheck.isDuplicate && (
-              <div className="p-4 rounded-lg bg-amber-50 border border-amber-300 text-amber-900 space-y-2">
+              <div className="p-3.5 rounded-lg border border-amber-300 dark:border-amber-800/80 bg-amber-50 dark:bg-amber-950/40 space-y-2">
                 <div className="flex items-start gap-2.5">
-                  <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+                  <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-bold text-xs uppercase tracking-wider text-amber-800">
-                      Possible Duplicate Detected ({duplicateCheck.score}% similarity)
+                    <h4 className="text-xs font-bold text-amber-900 dark:text-amber-200">
+                      Possible Duplicate Literature Detected
                     </h4>
-                    <p className="text-xs mt-1">
-                      A paper with a very similar title is already saved in this repository:
-                    </p>
-                    <p className="text-xs font-semibold mt-1 italic text-slate-800 bg-white/70 p-2 rounded border border-amber-200">
-                      &quot;{duplicateCheck.match?.title}&quot; (by {duplicateCheck.match?.authors})
+                    <p className="text-xs text-amber-700 dark:text-amber-300/80 mt-0.5">
+                      This title is remarkably similar to &quot;{duplicateCheck.match?.title}&quot; (Similarity: {Math.round(duplicateCheck.score * 100)}%).
                     </p>
                   </div>
                 </div>
@@ -206,7 +207,7 @@ export function LiteratureClient({ projectId, initialItems }: Props) {
                     onChange={(e) => setIgnoreWarning(e.target.checked)}
                     className="rounded border-slate-300 text-blue-600"
                   />
-                  <label htmlFor="ignoreWarning" className="text-xs text-amber-800 font-medium">
+                  <label htmlFor="ignoreWarning" className="text-xs text-amber-800 dark:text-amber-300 font-medium cursor-pointer">
                     This is a different paper / edition. Allow upload anyway.
                   </label>
                 </div>
@@ -228,7 +229,7 @@ export function LiteratureClient({ projectId, initialItems }: Props) {
               />
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
                   Paper Title <span className="text-red-500">*</span>
                 </label>
                 <Input
@@ -243,7 +244,7 @@ export function LiteratureClient({ projectId, initialItems }: Props) {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-slate-700">
+                  <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
                     Author(s) <span className="text-red-500">*</span>
                   </label>
                   <Input
@@ -257,7 +258,7 @@ export function LiteratureClient({ projectId, initialItems }: Props) {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-slate-700">
+                  <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
                     Folder Tag
                   </label>
                   <Input
@@ -271,7 +272,7 @@ export function LiteratureClient({ projectId, initialItems }: Props) {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-700">
+                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">
                   PDF / DOCX Document (Max 25 MB)
                 </label>
                 <Input
@@ -282,7 +283,7 @@ export function LiteratureClient({ projectId, initialItems }: Props) {
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-200 dark:border-slate-800">
                 <Button
                   type="button"
                   variant="outline"
@@ -311,10 +312,10 @@ export function LiteratureClient({ projectId, initialItems }: Props) {
 
       {/* Literature List */}
       {filteredItems.length === 0 ? (
-        <Card className="border-dashed bg-white">
-          <CardContent className="p-12 text-center text-slate-500 space-y-3">
-            <BookOpen className="h-10 w-10 text-slate-300 mx-auto" />
-            <p className="text-sm font-semibold text-slate-700">
+        <Card className="border-dashed bg-white dark:bg-slate-900/40">
+          <CardContent className="p-12 text-center text-slate-500 dark:text-slate-400 space-y-3">
+            <BookOpen className="h-10 w-10 text-slate-300 dark:text-slate-600 mx-auto" />
+            <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">
               No literature items found
             </p>
             <p className="text-xs text-slate-400">
@@ -338,7 +339,7 @@ export function LiteratureClient({ projectId, initialItems }: Props) {
             return (
               <Card
                 key={item.id}
-                className="bg-white hover:border-slate-300 transition-all shadow-2xs"
+                className="bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-700 transition-all shadow-2xs"
               >
                 <CardContent className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="space-y-1.5 flex-1">
@@ -360,24 +361,24 @@ export function LiteratureClient({ projectId, initialItems }: Props) {
                       </Badge>
 
                       {item.folder_tag && (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-medium bg-slate-100 text-slate-700 px-2 py-0.5 rounded">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded">
                           <Folder className="h-3 w-3 text-slate-400" />
                           {item.folder_tag}
                         </span>
                       )}
 
                       {isDuplicateFlagged && (
-                        <span className="inline-flex items-center gap-1 text-[10px] font-semibold bg-amber-100 text-amber-800 px-2 py-0.5 rounded border border-amber-200">
+                        <span className="inline-flex items-center gap-1 text-[10px] font-semibold bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-400 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-900/60">
                           <AlertTriangle className="h-3 w-3" /> Possible Duplicate
                         </span>
                       )}
                     </div>
 
-                    <h3 className="text-sm font-bold text-slate-900 leading-snug">
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white leading-snug">
                       {item.title}
                     </h3>
-                    <p className="text-xs text-slate-500">
-                      Authors: <span className="text-slate-700 font-medium">{item.authors}</span> • Uploaded {formatDate(item.uploaded_at)}
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      Authors: <span className="text-slate-700 dark:text-slate-300 font-medium">{item.authors}</span> • Uploaded {formatDate(item.uploaded_at)}
                     </p>
                   </div>
 
@@ -396,7 +397,7 @@ export function LiteratureClient({ projectId, initialItems }: Props) {
                         href={item.file_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-700 bg-blue-50/70 hover:bg-blue-100 px-3 h-8 rounded-md border border-blue-200 transition-colors"
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 bg-blue-50/70 dark:bg-blue-950/50 hover:bg-blue-100 dark:hover:bg-blue-900/50 px-3 h-8 rounded-md border border-blue-200 dark:border-blue-900/60 transition-colors"
                       >
                         <Download className="h-3.5 w-3.5" />
                         PDF
@@ -411,7 +412,7 @@ export function LiteratureClient({ projectId, initialItems }: Props) {
                       size="icon"
                       variant="ghost"
                       onClick={() => handleDelete(item.id)}
-                      className="h-8 w-8 text-slate-400 hover:text-red-600 hover:bg-red-50"
+                      className="h-8 w-8 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40"
                       title="Delete from repository"
                     >
                       <Trash2 className="h-4 w-4" />

@@ -31,10 +31,10 @@ export default async function ProjectChatPage({ params }: Props) {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-xl font-bold tracking-tight text-slate-900">
+        <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
           Collaborative Project Discussion
         </h2>
-        <p className="text-xs text-slate-500 mt-0.5">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
           Private communication thread between supervisor and student group members
         </p>
       </div>

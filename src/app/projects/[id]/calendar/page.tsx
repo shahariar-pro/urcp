@@ -30,10 +30,10 @@ export default async function CalendarPage({ params }: Props) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-bold tracking-tight text-slate-900">
+        <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
           Shared Meeting Schedule & Calendar
         </h2>
-        <p className="text-xs text-slate-500 mt-0.5">
+        <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
           Propose supervisor check-in slots, confirm thesis defense milestones, and track meeting locations
         </p>
       </div>

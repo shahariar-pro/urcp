@@ -8,7 +8,7 @@ import {
 } from "@/app/actions/admin";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Search, UserCheck, Shield, AlertCircle, CheckCircle2 } from "lucide-react";
 import { formatDate } from "@/lib/utils";
@@ -65,8 +65,8 @@ export function UsersClient({ initialUsers }: Props) {
         <div
           className={`p-3 text-xs rounded-lg border flex items-center gap-2 ${
             feedback.startsWith("Error")
-              ? "bg-red-50 text-red-700 border-red-200"
-              : "bg-emerald-50 text-emerald-800 border-emerald-200"
+              ? "bg-red-50 dark:bg-red-950/50 text-red-700 dark:text-red-400 border-red-200 dark:border-red-900/60"
+              : "bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-400 border-emerald-200 dark:border-emerald-900/60"
           }`}
         >
           {feedback.startsWith("Error") ? (
@@ -79,7 +79,7 @@ export function UsersClient({ initialUsers }: Props) {
       )}
 
       {/* Search Bar */}
-      <div className="flex items-center justify-between bg-white p-4 rounded-xl border border-slate-200 shadow-2xs">
+      <div className="flex items-center justify-between bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-2xs">
         <div className="relative flex-1 max-w-sm">
           <Input
             placeholder="Search by user name or email..."
@@ -87,18 +87,18 @@ export function UsersClient({ initialUsers }: Props) {
             onChange={(e) => setSearch(e.target.value)}
             className="pl-9 text-xs h-9"
           />
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+          <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400 dark:text-slate-500" />
         </div>
-        <div className="text-xs text-slate-500 font-medium">
+        <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
           {filteredUsers.length} Registered Accounts
         </div>
       </div>
 
       {/* Users Table */}
-      <Card className="bg-white border-slate-200 shadow-2xs overflow-hidden">
+      <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-2xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 text-slate-500 border-b border-slate-200 uppercase font-semibold text-[11px]">
+            <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800 uppercase font-semibold text-[11px]">
               <tr>
                 <th className="px-5 py-3">Member</th>
                 <th className="px-5 py-3">Department</th>
@@ -108,18 +108,18 @@ export function UsersClient({ initialUsers }: Props) {
                 <th className="px-5 py-3 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {filteredUsers.map((user) => (
-                <tr key={user.id} className="hover:bg-slate-50/70 transition-colors">
+                <tr key={user.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
                   <td className="px-5 py-3.5">
-                    <div className="font-semibold text-slate-900">
+                    <div className="font-semibold text-slate-900 dark:text-white">
                       {user.full_name}
                     </div>
-                    <div className="text-slate-400 text-[11px]">
+                    <div className="text-slate-400 dark:text-slate-500 text-[11px]">
                       {user.university_email}
                     </div>
                   </td>
-                  <td className="px-5 py-3.5 text-slate-600">
+                  <td className="px-5 py-3.5 text-slate-600 dark:text-slate-300">
                     {user.department}
                   </td>
                   <td className="px-5 py-3.5">
@@ -128,7 +128,7 @@ export function UsersClient({ initialUsers }: Props) {
                       onChange={(e) =>
                         handleRoleChange(user.id, e.target.value as UserRole)
                       }
-                      className="bg-white border border-slate-200 rounded px-2 py-1 text-xs font-semibold text-slate-800 shadow-2xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-purple-600 cursor-pointer"
+                      className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-xs font-semibold text-slate-800 dark:text-slate-200 shadow-2xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-purple-600 cursor-pointer"
                     >
                       <option value="student">Student</option>
                       <option value="faculty">Faculty</option>
@@ -143,7 +143,7 @@ export function UsersClient({ initialUsers }: Props) {
                       {user.is_active ? "Active" : "Deactivated"}
                     </Badge>
                   </td>
-                  <td className="px-5 py-3.5 text-slate-500">
+                  <td className="px-5 py-3.5 text-slate-500 dark:text-slate-400">
                     {formatDate(user.created_at)}
                   </td>
                   <td className="px-5 py-3.5 text-right">
@@ -155,8 +155,8 @@ export function UsersClient({ initialUsers }: Props) {
                       }
                       className={`h-7 text-xs px-2.5 ${
                         user.is_active
-                          ? "text-red-600 hover:bg-red-50 border-red-200"
-                          : "text-emerald-600 hover:bg-emerald-50 border-emerald-200"
+                          ? "text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 border-red-200 dark:border-red-900/60"
+                          : "text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 border-emerald-200 dark:border-emerald-900/60"
                       }`}
                     >
                       {user.is_active ? "Deactivate" : "Activate"}
